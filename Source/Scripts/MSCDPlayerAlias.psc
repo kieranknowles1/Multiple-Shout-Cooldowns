@@ -4,6 +4,8 @@ Scriptname MSCDPlayerAlias extends ReferenceAlias
 Actor Property PlayerRef Auto
 
 GlobalVariable Property MSCDWordsUnlockedPerCooldown Auto
+GlobalVariable Property MSCDCooldownsPerWordKnown Auto
+GlobalVariable Property MSCDBaseCooldowns Auto
 
 Message Property MSCDMessageNumAvailable Auto
 {"%d of %d cooldowns available."}
@@ -32,10 +34,20 @@ endevent
 
 int function GetMaxCooldowns()
 {Get the maximum number of cooldowns the player can have, based on their progress.}
-    int wordsUnlocked = Game.QueryStat("Words of Power Unlocked")
-    int wordsPerCooldown = MSCDWordsUnlockedPerCooldown.GetValue() as int
+    int total = MSCDBaseCooldowns.GetValue() as int
 
-    return 1 + (wordsUnlocked / wordsPerCooldown)
+    int knownPerCooldown = MSCDCooldownsPerWordKnown.GetValue() as int
+    if knownPerCooldown > 0
+        int wordsKnown = Game.QueryStat("Words of Power Learned")
+        total += wordsKnown / knownPerCooldown
+    endif
+    int unlockedPerCooldown = MSCDWordsUnlockedPerCooldown.GetValue() as int
+    if unlockedPerCooldown > 0
+        int wordsUnlocked = Game.QueryStat("Words of Power Unlocked")
+        total += wordsUnlocked / unlockedPerCooldown
+    endif
+
+    return total
 endfunction
 
 int function GetShortestCooldownIndex()

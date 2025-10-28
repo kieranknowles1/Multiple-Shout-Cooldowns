@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Exit-9B/MCM-Helper/main/docs/config.schema.json",
+  "modName": "MultipleShoutCooldowns",
+  "displayName": "Multiple Shout Cooldowns",
+  "minMcmVersion": 13,
+  "cursorFillMode": "topToBottom",
+  "content": [
+    {
+      "type": "header",
+      "text": "Settings"
+    },
+    {
+      "type": "slider",
+      "text": "Base slots",
+      "help": "Base number of cooldown slots available",
+      "valueOptions": {
+        "min": 1,
+        "defaultValue": 1,
+        "max": 10,
+        "step": 1,
+        "formatString": "{0}",
+        "sourceType": "GlobalValue",
+        "sourceForm": "MultipleShoutCooldowns.esp|001"
+      }
+    },
+    {
+      "type": "slider",
+      "text": "Words known per slot",
+      "help": "Number of words known to gain a cooldown slot. Set to 0 to disable",
+      "valueOptions": {
+        "min": 0,
+        "defaultValue": 0,
+        "max": 30,
+        "step": 1,
+        "formatString": "Every {0} known",
+        "sourceType": "GlobalValue",
+        "sourceForm": "MultipleShoutCooldowns.esp|002"
+      }
+    },
+    {
+      "type": "slider",
+      "text": "Words unlocked per slot",
+      "help": "Number of words unlocked to gain a cooldown slot. Set to 0 to disable",
+      "valueOptions": {
+        "min": 0,
+        "defaultValue": 15,
+        "max": 30,
+        "step": 1,
+        "formatString": "Every {0} unlocked",
+        "sourceType": "GlobalValue",
+        "sourceForm": "MultipleShoutCooldowns.esp|D63"
+      }
+    },
+
+    {
+      "type": "header",
+      "text": "Information"
+    },
+    {
+      "type": "slider",
+      "text": "Slots available",
+      "help": "Number of slots currently available, reopen MCM to refresh",
+      "groupBehavior": "disable",
+      "valueOptions": {
+        "sourceType": "GlobalValue",
+        "sourceForm": "MultipleShoutCooldowns.esp|004"
+      }
+    }
+  ]
+}
