@@ -7,12 +7,12 @@
   "content": [
     {
       "type": "header",
-      "text": "Settings"
+      "text": "$MSCD_Settings"
     },
     {
       "type": "slider",
-      "text": "Base slots",
-      "help": "Base number of cooldown slots available",
+      "text": "$MSCD_BaseSlots",
+      "help": "$MSCD_BaseSlotsDesc",
       "valueOptions": {
         "min": 1,
         "defaultValue": 1,
@@ -25,8 +25,8 @@
     },
     {
       "type": "slider",
-      "text": "Words known per slot",
-      "help": "Number of words known to gain a cooldown slot. Set to 0 to disable",
+      "text": "$MSCD_KnownPerSlot",
+      "help": "$MSCD_KnownPerSlotDesc",
       "valueOptions": {
         "min": 0,
         "defaultValue": 0,
@@ -39,8 +39,8 @@
     },
     {
       "type": "slider",
-      "text": "Words unlocked per slot",
-      "help": "Number of words unlocked to gain a cooldown slot. Set to 0 to disable",
+      "text": "$MSCD_UnlockedPerSlot",
+      "help": "$MSCD_UnlockedPerSlotDesc",
       "valueOptions": {
         "min": 0,
         "defaultValue": 15,
@@ -54,12 +54,12 @@
 
     {
       "type": "header",
-      "text": "Information"
+      "text": "$MSCD_Info"
     },
     {
       "type": "slider",
-      "text": "Slots available",
-      "help": "Number of slots currently available, reopen MCM to refresh",
+      "text": "$MSCD_Available",
+      "help": "$MSCD_AvailableDesc",
       "groupBehavior": "disable",
       "valueOptions": {
         "sourceType": "GlobalValue",
