@@ -17,19 +17,17 @@ int property UPDATE_FREQUENCY = 1 autoreadonly
 ; unsorted priority queue, all operations are O(n) since we have to walk the array.
 ; The exception to this is our vanilla slot, which is always at the front of the
 ; queue and acts as an overflow when no cooldowns are available.
-float[] cooldowns auto
-
-; FIXME: Caprica currently doesn't properly detect var init in for loops, so having to declare beforehand
-; Doing it in both causes a double declaration, which the game ignores even though it should be screaming in terror
+float[] cooldowns
 
 Event OnInit()
     cooldowns = new Float[128]
 
 
     int i = 0
-    for i = 0 to (cooldowns.Length - 1)
+    while i < cooldowns.Length - 1
         cooldowns[i] = EMPTY_SLOT
-    endfor
+        i += 1
+    endwhile
 endevent
 
 int function GetMaxCooldowns()
@@ -46,12 +44,13 @@ int function GetShortestCooldownIndex()
     int shortestIndex = -1
 
     int i = 0
-    for i = 0 to (cooldowns.Length - 1)
+    while i < cooldowns.Length
         if (cooldowns[i] != EMPTY_SLOT && cooldowns[i] < shortest)
             shortest = cooldowns[i]
             shortestIndex = i
         endif
-    endfor
+        i += 1
+    endwhile
 
     return shortestIndex
 endfunction
@@ -59,11 +58,12 @@ endfunction
 int function GetNextFreeSlot()
 {Get the index of the next free slot}
     int i = 0
-    for i = 0 to (cooldowns.Length - 1)
+    while i < cooldowns.Length
         if (cooldowns[i] == EMPTY_SLOT)
             return i
         endif
-    endfor
+        i += 1
+    endwhile
 
     ; Should never happen
     Debug.MessageBox("You broke it. Stop yelling for a bit.")
@@ -74,13 +74,13 @@ int function GetUsedSlotCount()
 {Get the number of slots in use, including the vanilla one}
 
     int used = 0
-    ; TODO: Use foreach once it's fixed
     int i = 0
-    for i = 0 to (cooldowns.Length - 1)
+    while i < cooldowns.Length
         if (cooldowns[i] != EMPTY_SLOT)
             used += 1
         endif
-    endfor
+        i += 1
+    endwhile
 
     ; See if the vanilla shout is on cooldown
     if (PlayerRef.GetVoiceRecoveryTime() > 0)
@@ -106,7 +106,7 @@ event OnUpdate()
     endif
 
     ; Reduce the cooldown
-    cooldowns[shortestIndex] -= UPDATE_FREQUENCY
+    cooldowns[shortestIndex] = cooldowns[shortestIndex] - UPDATE_FREQUENCY
     ; Cooldown is done, free up the slot and tell the player
     if (cooldowns[shortestIndex] <= 0)
         cooldowns[shortestIndex] = EMPTY_SLOT
